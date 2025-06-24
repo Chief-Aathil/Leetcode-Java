@@ -31,52 +31,43 @@ public class Q19 {
 
     }
 
-    public static ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode current = head;
-        int size = 1;
-        for (; current.next != null; size++) {
-            current = current.next;
-        }
-        current = head;
-        for (int i = 1; i < size - n; i++) {
-
-            current = current.next;
-        }
-        if (current == head) {
-            head = current.next == null ? null : current.next.next;
-        } else {
-            current.next = current.next.next;
-        }
-        return head;
-    }
-
-
-//    public static  ListNode removeNthFromEnd(ListNode head, int n) {
-//        ListNode fastPointer = head, slowPointer = head;
+//    public static ListNode removeNthFromEnd(ListNode head, int n) {
+//        ListNode current = head;
+//        int size = 1;
+//        for (; current.next != null; size++) {
+//            current = current.next;
+//        }
+//        current = head;
+//        for (int i = 1; i < size - n; i++) {
 //
-//        //Offset fastPointer by n nodes ahead of slowPointer. Or till fastPointer reaches tail node
-//        for(int i=0; i<n && fastPointer.next!=null; i++){
-//            fastPointer = fastPointer.next;
+//            current = current.next;
 //        }
-//        //Move both pointers till fastPointer reach tail
-//        while(fastPointer.next!=null){
-//            fastPointer = fastPointer.next;
-//            slowPointer = slowPointer.next;
-//        }
-//        //case: remove head node
-//        if(slowPointer == head ) {
-//            if (fastPointer == head) {
-//                //head -> 0(s,f) -> null
-//                head = null;
-//            }else{
-//                // head -> 0s ->..f..->null
-//                head = slowPointer.next;
-//            }
-//        }else {
-//            slowPointer.next = slowPointer.next.next;
+//        if (current == head) {
+//            head = current.next == null ? null : current.next.next;
+//        } else {
+//            current.next = current.next.next;
 //        }
 //        return head;
 //    }
+
+
+    public static  ListNode removeNthFromEnd(ListNode head, int n) {
+        //Use a dummy node to handle the case where the head node needs to be removed.
+        ListNode start = new ListNode(0,head);
+        ListNode fastPointer = start, slowPointer = start ;
+
+        //Offset fastPointer by n nodes ahead of slowPointer. Or till fastPointer reaches tail node
+        for(int i=0; i<n; i++){
+            fastPointer = fastPointer.next;
+        }
+        //Move both pointers till fastPointer reach tail
+        while(fastPointer.next!=null){
+            fastPointer = fastPointer.next;
+            slowPointer = slowPointer.next;
+        }
+       slowPointer.next = slowPointer.next.next;
+        return start.next;
+    }
 
 
     public static void main(String[] args) {
