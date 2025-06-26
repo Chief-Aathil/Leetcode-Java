@@ -26,20 +26,38 @@ public class Q206 {
         }
 
     }
-    public ListNode reverseList(ListNode head) {
-        ListNode prev, current, nextNode;
-        prev = null;
-        current = head;
-        nextNode = head != null ? head.next : null;
 
-        while (current != null) {
-            current.next = prev;
-            prev = current;
-            current = nextNode;
-            if (nextNode != null) {
-                nextNode = nextNode.next;
-            }
+    //Iterative method
+//    public ListNode reverseList(ListNode head) {
+//        ListNode prev, current, nextNode;
+//        prev = null;
+//        current = head;
+//        nextNode = head != null ? head.next : null;
+//
+//        while (current != null) {
+//            current.next = prev;
+//            prev = current;
+//            current = nextNode;
+//            if (nextNode != null) {
+//                nextNode = nextNode.next;
+//            }
+//        }
+//        return prev;
+//    }
+
+    //Recursive method
+    public ListNode reverseList(ListNode node) {
+        //handle base case: tail
+        if (node == null || node.next == null) {
+            return node;
         }
-        return prev;
+        //handle general case. recursive call
+        //set the current node as the last node the reversed list
+        ListNode newHead = reverseList(node.next);
+        node.next.next = node;
+        node.next = null;
+        return newHead;
+
     }
+
 }
