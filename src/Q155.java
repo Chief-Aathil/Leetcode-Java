@@ -4,7 +4,7 @@ import java.util.List;
 public class Q155 {
     class MinStack {
 
-        List<Integer> elements = new ArrayList<>();
+        int[] elements = new int[30000];
         int[] minAtIndex = new int[30000];
         int top = -1;
         int min = Integer.MAX_VALUE;
@@ -14,16 +14,16 @@ public class Q155 {
         }
 
         public void push(int val) {
-            elements.add(++top,val);
+            elements[++top]=val;
             minAtIndex[top] = Math.min(top==0?Integer.MAX_VALUE:minAtIndex[top-1], val);
         }
 
         public void pop() {
-            elements.set(top--,Integer.MAX_VALUE);
+            elements[top--]=Integer.MAX_VALUE;
         }
 
         public int top() {
-            return elements.get(top);
+            return elements[top];
         }
 
         public int getMin() {
