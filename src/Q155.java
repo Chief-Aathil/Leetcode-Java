@@ -3,34 +3,45 @@ import java.util.List;
 
 public class Q155 {
     class MinStack {
+        private Node top;
 
-        int[] elements = new int[30000];
-        int[] minAtIndex = new int[30000];
-        int top = -1;
-        int min = Integer.MAX_VALUE;
+        private  class Node {
+            int val;
+            int min;
+            Node next;
+            Node(int val, int min, Node next) {
+                this.val = val;
+                this.min = min;
+                this.next = next;
+            }
+        }
 
         public MinStack() {
-
+            top = null;
         }
 
         public void push(int val) {
-            elements[++top]=val;
-            minAtIndex[top] = Math.min(top==0?Integer.MAX_VALUE:minAtIndex[top-1], val);
+            if (top == null) {
+                top = new Node(val, val, null);
+            } else {
+                top = new Node(val, Math.min(val, top.min), top);
+            }
         }
 
         public void pop() {
-            elements[top--]=Integer.MAX_VALUE;
+            if (top != null) {
+                top = top.next;
+            }
         }
 
         public int top() {
-            return elements[top];
+            return top.val;
         }
 
         public int getMin() {
-            return minAtIndex[top];
+            return top.min;
         }
     }
-
 /**
  * Your MinStack object will be instantiated and called as such:
  * MinStack obj = new MinStack();
