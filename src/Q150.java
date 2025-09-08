@@ -3,25 +3,25 @@ import java.util.Stack;
 public class Q150 {
     static class Solution {
         public int evalRPN(String[] tokens) {
-            Stack<String> stack = new Stack<>();
+            Stack<Integer> stack = new Stack<>();
             //iterate through the tokens
             for (String token : tokens) {
                 //if operator encountered, pop last two elements, evaluate, push back to stack
                 if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
-                    int b = Integer.parseInt(stack.pop());
-                    int a = Integer.parseInt(stack.pop());
+                    int b = stack.pop();
+                    int a = stack.pop();
                     switch (token) {
-                        case "+" -> stack.push(String.valueOf(a + b));
-                        case "-" -> stack.push(String.valueOf(a - b));
-                        case "*" -> stack.push(String.valueOf(a * b));
-                        case "/" -> stack.push(String.valueOf(a / b));
+                        case "+" -> stack.push(a + b);
+                        case "-" -> stack.push(a - b);
+                        case "*" -> stack.push(a * b);
+                        case "/" -> stack.push(a / b);
                     }
                 } else {
                     //add each element to stack
-                    stack.push(token);
+                    stack.push(Integer.parseInt(token));
                 }
             }
-            return Integer.parseInt(stack.pop());
+            return stack.pop();
         }
     }
 
