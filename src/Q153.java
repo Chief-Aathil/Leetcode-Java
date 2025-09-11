@@ -5,25 +5,17 @@ import java.util.stream.Collectors;
 public class Q153 {
     class Solution {
         public int findMin(int[] nums) {
-            //binary search: compare middle with left and right
-            int left = 0, right=nums.length-1,mid,smallest=nums[0];
-            int currentSmallest=smallest;
+            //binary search: compare middle with right only
+            int left = 0, right=nums.length-1,mid;
             while(left<right){
                 mid= (left+right)/2;
-                int prev = nums[left];
-                int next = nums[right];
-                currentSmallest=Math.min(Math.min(prev,next),nums[mid]);
-                if(smallest<currentSmallest)break;
-                smallest = currentSmallest;
-
-                if(smallest==prev || smallest == nums[mid]){
-                    right=mid-1;
-                }else if(smallest==next){
-                    left=mid+1;
+                if(nums[mid]>nums[right]){
+                    left = mid+1;
+                }else{
+                    right = mid;
                 }
             }
-            return smallest;
+            return nums[right];
         }
     }
-
 }
