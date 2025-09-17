@@ -1,4 +1,5 @@
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Q739 {
     class Solution {
@@ -8,7 +9,7 @@ public class Q739 {
              Then pop every element add set output for each.
              */
 
-            Stack<Integer> stack = new Stack<>();
+            Deque<Integer> stack = new ArrayDeque<>();
             int[] out = new int[temperatures.length];
 
             for(int i=0; i<temperatures.length; i++){
@@ -17,11 +18,6 @@ public class Q739 {
                     out[index]=i-index;
                 }
                 stack.push(i);
-            }
-
-            //Remaining elements doesn't have a larger value to right.
-            while(!stack.isEmpty()){
-                out[stack.pop()] = 0;
             }
             return out;
 
