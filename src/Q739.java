@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Stack;
 
 public class Q739 {
@@ -6,22 +5,23 @@ public class Q739 {
         public int[] dailyTemperatures(int[] temperatures) {
             /**
              Add numbers to the stack until a higher num is encountered.
-             Then pop every element and set output for each.
+             Then pop every element add set output for each.
              */
 
-            Stack<List<Integer>> stack = new Stack<>();
+            Stack<Integer> stack = new Stack<>();
             int[] out = new int[temperatures.length];
 
             for(int i=0; i<temperatures.length; i++){
-                while(!stack.isEmpty() && stack.peek().get(0)<temperatures[i]){
-                    var list = stack.pop();
-                    out[list.get(1)]=i-list.get(1);
+                while(!stack.isEmpty() && temperatures[stack.peek()]<temperatures[i]){
+                    var index = stack.pop();
+                    out[index]=i-index;
                 }
-                stack.push(List.of(temperatures[i],i));
+                stack.push(i);
             }
-            //Remaining stack elements doesn't have a higher value after them
+
+            //Remaining elements doesn't have a larger value to right.
             while(!stack.isEmpty()){
-                out[stack.pop().get(1)] = 0;
+                out[stack.pop()] = 0;
             }
             return out;
 
