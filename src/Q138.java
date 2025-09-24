@@ -26,12 +26,10 @@ class Node {
 
             Node ptr = head;
             Node preHead = new Node(0), ptrCopy = preHead;
-            Map<Node,Integer> nodeIndexMap = new HashMap<>();
-            List<Node> newNodes = new ArrayList<>();
+            Map<Node,Node> nodeMap = new HashMap<>();
             for(int i=0; ptr!=null; i++){
                 var newNode= new Node(ptr.val);
-                nodeIndexMap.put(ptr,i);
-                newNodes.add(newNode);
+                nodeMap.put(ptr,newNode);
                 ptrCopy.next = newNode;
                 ptrCopy = ptrCopy.next;
                 ptr=ptr.next;
@@ -42,8 +40,8 @@ class Node {
             ptrCopy= preHead.next;
             ptr=head;
             while(ptr!=null){
-                ptrCopy.random = nodeIndexMap.get(ptr.random)!=null
-                        ? newNodes.get(nodeIndexMap.get(ptr.random))
+                ptrCopy.random = ptr.random!=null
+                        ? nodeMap.get(ptr.random)
                         : null;
                 ptr= ptr.next;
                 ptrCopy= ptrCopy.next;
