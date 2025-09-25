@@ -1,13 +1,8 @@
 public class Q104 {
     class Solution {
         public int maxDepth(TreeNode root) {
-            if (root == null) return 0;
-            if (root.left == null && root.right == null) {
-                return 1;
-            }
-            int leftDepth = root.left != null ? maxDepth(root.left) : 0;
-            int rightDepth = root.right != null ? maxDepth(root.right) : 0;
-            return Math.max(leftDepth, rightDepth) + 1;
+            if(root==null) return 0;
+            return 1+ Math.max(maxDepth(root.left),maxDepth(root.right));
         }
     }
 
