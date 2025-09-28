@@ -1,5 +1,5 @@
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Q110 {
 
@@ -23,7 +23,7 @@ public class Q110 {
     }
 
     class Solution {
-        ConcurrentMap<TreeNode, Integer> heightMap = new ConcurrentHashMap<>();
+        Map<TreeNode, Integer> heightMap = new HashMap<>();
 
         public boolean isBalanced(TreeNode root) {
             if (root == null) return true;
