@@ -23,26 +23,19 @@ public class Q110 {
     }
 
     class Solution {
-        Map<TreeNode, Integer> heightMap = new HashMap<>();
-
+        record BoolInt(boolean isBalanced, int height){};
         public boolean isBalanced(TreeNode root) {
-            if (root == null) return true;
-            int leftHeight = getHeight(root.left);
-            int rightHeight = getHeight(root.right);
-            if (Math.abs(leftHeight - rightHeight) > 1) {
-                return false;
-            }
-            return isBalanced(root.left) && isBalanced(root.right);
+            return dfs(root).isBalanced();
         }
 
-        int getHeight(TreeNode node) {
-            if (node == null) return 0;
-            if (heightMap.containsKey(node)) return heightMap.get(node);
-            var leftHeight = getHeight(node.left);
-            var rightHeight = getHeight(node.right);
-            var height = 1 + Math.max(leftHeight, rightHeight);
-            heightMap.put(node, height);
-            return height;
+        public BoolInt dfs(TreeNode node){
+            if(node == null) return new BoolInt(true,0);
+            var left = dfs(node.left);
+            var right = dfs(node.right);
+            var height = 1 + Math.max(left.height,right.height);
+            var isBalanced = left.isBalanced() && right.isBalanced()
+                    && Math.abs(left.height - right.height)<2;
+            return new BoolInt(isBalanced,height);
         }
     }
 }
