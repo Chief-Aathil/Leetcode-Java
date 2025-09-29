@@ -20,18 +20,18 @@ public class Q543 {
     }
 
     class Solution {
-
+        int diameter=0;
         public int diameterOfBinaryTree(TreeNode root) {
-            if (root == null) return 0;
-            var currentDiameter = maxDepth(root.left) + maxDepth(root.right);
-            var leftDiameter = diameterOfBinaryTree(root.left);
-            var rightDiameter = diameterOfBinaryTree(root.right);
-            return Math.max(currentDiameter, Math.max(leftDiameter, rightDiameter));
+            getHeight(root);
+            return diameter;
         }
 
-        private int maxDepth(TreeNode node) {
-            if (node == null) return 0;
-            return 1 + Math.max(maxDepth(node.left), maxDepth(node.right));
+        int getHeight(TreeNode node){
+            if(node== null) return 0;
+            int leftHeight = getHeight(node.left);
+            int rightHeight = getHeight(node.right);
+            diameter = Math.max(diameter,leftHeight+rightHeight);
+            return 1+ Math.max(leftHeight,rightHeight);
         }
     }
 }
