@@ -9,34 +9,34 @@ public class Q271 {
     static class Solution {
 
         public String encode(List<String> strs) {
-            String out=strs.isEmpty()?"0":"";
+            StringBuilder out= new StringBuilder();
+            if(strs.isEmpty()) return out.toString();
             for(var str: strs){
-                out+= str.length()+"#"+str;
+                out.append(str.length()).append("#").append(str);
             }
-            return out;
+            return out.toString();
         }
 
         public List<String> decode(String str) {
             char[] chars = str.toCharArray();
             List<String> out = new ArrayList<>();
-            if(chars[0]=='0') return out;
             int len;
             for(int i=0; i<chars.length; ){
-                String s ="";
+                StringBuilder strBuilder = new StringBuilder();
 
                 //Parse the length
                 while(chars[i]!='#'){
-                    s+=chars[i];
+                    strBuilder.append(chars[i]);
                     i++;
                 }
                 i++;
-                len = Integer.parseInt(s);
-                s="";
+                len = Integer.parseInt(strBuilder.toString());
+                strBuilder = new StringBuilder();
                 int j=0;
                 for(; j<len; j++){
-                    s+=chars[i+j];
+                    strBuilder.append(chars[i + j]);
                 }
-                out.add(s);
+                out.add(strBuilder.toString());
                 i=i+j;
             }
             return out;
