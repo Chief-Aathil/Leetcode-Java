@@ -25,28 +25,21 @@ public class Q199 {
     }
 
     class Solution {
-        public List<Integer> rightSideView(TreeNode root) {
-            /**
-             BFS. Add the right most element in each level to output.
-             */
+        List<Integer> res = new ArrayList<>();
 
-            List<Integer> list = new ArrayList<>();
-            if (root == null)
-                return list;
-            Queue<TreeNode> queue = new ArrayDeque<>();
-            queue.add(root);
-            while (!queue.isEmpty()) {
-                int currentLevelCount = queue.size();
-                TreeNode node = null ;
-                for (int i = 0; i < currentLevelCount; i++) {
-                    node = queue.remove();
-                    if (node.left != null) queue.add(node.left);
-                    if (node.right != null) queue.add(node.right);
-                }
-                list.add(node.val);
+        public List<Integer> rightSideView(TreeNode root) {
+            dfs(root, 0);
+            return res;
+        }
+
+        private void dfs(TreeNode node, int level) {
+            if (node == null)
+                return;
+            if (res.size() == level) {
+                res.add(node.val);
             }
-            return list;
+            dfs(node.right, level + 1);
+            dfs(node.left, level + 1);
         }
     }
-
 }
