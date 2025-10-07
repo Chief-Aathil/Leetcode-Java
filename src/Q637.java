@@ -29,16 +29,16 @@ public class Q637 {
             Queue<TreeNode> queue = new ArrayDeque<>();
             List<Double> levelAverages = new ArrayList<>();
             queue.add(root);
-            while(!queue.isEmpty()){
+            while (!queue.isEmpty()) {
                 int levelSize = queue.size();
                 double sum = 0.0;
-                for(int i =0; i< levelSize; i++){
-                    sum+=queue.peek().val;
-                    queue.offer(queue.peek().left);
-                    queue.offer(queue.peek().right);
-                    queue.remove();
+                for (int i = 0; i < levelSize; i++) {
+                    var node = queue.remove();
+                    sum += node.val;
+                    if (node.left != null) queue.add(node.left);
+                    if (node.right != null) queue.add(node.right);
                 }
-                levelAverages.add(sum/levelSize);
+                levelAverages.add(sum / levelSize);
             }
             return levelAverages;
         }
