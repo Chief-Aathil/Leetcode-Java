@@ -23,26 +23,18 @@ public class Q1448 {
         int goodNodeCount = 0;
 
         public int goodNodes(TreeNode root) {
-            dfs(root, new int[]{Integer.MIN_VALUE});
+            dfs(root, Integer.MIN_VALUE);
             return goodNodeCount;
         }
 
-        void dfs(TreeNode node, int[] prevValues) {
+        void dfs(TreeNode node, int currentGreatest) {
             if (node == null)
                 return;
-            boolean isCurrentValGreater = true;
-            int[] values = new int[prevValues.length + 1];
-            for (int i = 0; i < prevValues.length; i++) {
-                values[i] = prevValues[i];
-                if (prevValues[i] > node.val)
-                    isCurrentValGreater = false;
-            }
-            if (isCurrentValGreater)
+            if (node.val >= currentGreatest)
                 goodNodeCount++;
-            values[prevValues.length] = node.val;
-            dfs(node.left, values);
-            dfs(node.right, values);
+            currentGreatest = Math.max(currentGreatest, node.val);
+            dfs(node.left, currentGreatest);
+            dfs(node.right, currentGreatest);
         }
     }
-
 }
