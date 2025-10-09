@@ -22,11 +22,25 @@ public class Q98 {
     }
 
     class Solution {
+        List<Integer> values = new ArrayList<>();
+
         public boolean isValidBST(TreeNode root) {
-            if((root.left!=null && root.left.val>=root.val) ||
-                    (root.right!=null && root.right.val<=root.val)) return false;
-            return (root.left==null || isValidBST(root.left)) && (root.right==null || isValidBST(root.right));
+            values = bst(root);
+            for (int i = 0, j = 1; j < values.size(); i++, j++) {
+                if (values.get(i) >= values.get(j))
+                    return false;
+            }
+            return true;
+        }
+
+        List<Integer> bst(TreeNode root) {
+            List<Integer> arr = new ArrayList<>();
+            if (root.left != null)
+                arr.addAll(bst(root.left));
+            arr.add(root.val);
+            if (root.right != null)
+                arr.addAll(bst(root.right));
+            return arr;
         }
     }
-
 }
