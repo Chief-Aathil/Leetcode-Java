@@ -23,18 +23,16 @@ public class Q230 {
     }
 
     class Solution {
+        List<Integer> list = new ArrayList<>();
         public int kthSmallest(TreeNode root, int k) {
-            List<Integer> list = traverse(root);
+            traverse(root);
             return list.get(k-1);
         }
 
-        List<Integer> traverse(TreeNode node) {
-            List<Integer> list = new ArrayList<>();
-            if(node.left!=null) list.addAll(traverse(node.left));
+        void traverse(TreeNode node) {
+            if(node.left!=null) traverse(node.left);
             list.add(node.val);
-            if(node.right!=null) list.addAll(traverse(node.right));
-            return list;
+            if(node.right!=null) traverse(node.right);
         }
-
     }
 }
