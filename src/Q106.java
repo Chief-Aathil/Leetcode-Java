@@ -43,7 +43,7 @@ public class Q106 {
 
             //build right subtree
             if (inorderRootIndex + 1 < inorder.length) {
-                int[] inorderRight = Arrays.copyOfRange(inorder, inorderRootIndex, inorder.length);
+                int[] inorderRight = Arrays.copyOfRange(inorder, inorderRootIndex+1, inorder.length);
                 int[] preorderRight = Arrays.copyOfRange(preorder, inorderRootIndex + 1, preorder.length);
                 root.right = buildTree(preorderRight, inorderRight);
             }
