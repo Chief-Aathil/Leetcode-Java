@@ -14,14 +14,16 @@ public class Q56 {
                 int end = intervals[i][1];
 
                 //Merge adjacent intervals with overlap
-                while (i + 1 < n && intervals[i][1]>=intervals[i+1][0]) {
-                    if(intervals[i][1]<intervals[i+1][1]){
+                while (i + 1 < n && end>=intervals[i+1][0]) {
+                    if(end<intervals[i+1][1]){
                         end = intervals[i+1][1];
                     }
                     i++;
                 }
                 out.add(List.of(start, end));
             }
+
+            //create output array.
             int[][] outArr = new int[out.size()][2];
             for (int i = 0; i < out.size(); i++) {
                 outArr[i][0] = out.get(i).get(0);
