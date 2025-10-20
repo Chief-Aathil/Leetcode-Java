@@ -6,11 +6,11 @@ public class Q238 {
             int prefixProduct=1, suffixProduct=1;
             for(int i=0; i<nums.length; i++){
                 out[i] = prefixProduct;
-                prefixProduct*=out[i];
+                prefixProduct*=nums[i];
             }
             for(int i=nums.length-1; i>=0; i--){
                 suffix[i]= suffixProduct;
-                suffixProduct*=out[i];
+                suffixProduct*=nums[i];
             }
             for(int i=0; i<nums.length; i++){
                 out[i] = out[i]*suffix[i];
