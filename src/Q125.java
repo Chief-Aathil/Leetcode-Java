@@ -6,17 +6,16 @@ public class Q125 {
              Only consider alphanumeric characters
              */
 
-            char[] chars = s.toLowerCase().toCharArray();
-            for(int left=0, right=chars.length-1; left<right; left++,right--){
-                while(!isAlphaNumeric(chars[left]) && left<right) left++;
-                while(!isAlphaNumeric(chars[right]) && left<right) right--;
-                if(chars[left]!=chars[right]) return false;
+            for(int left=0, right=s.length()-1; left<right; left++,right--){
+                while(!isAlphaNumeric(s.charAt(left)) && left<right) left++;
+                while(!isAlphaNumeric(s.charAt(right)) && left<right) right--;
+                if(Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right))) return false;
             }
             return true;
         }
 
         boolean isAlphaNumeric(char c){
-            return (c>='a' && c<='z') || (c>='0' && c<='9');
+            return (c>='a' && c<='z') || (c>='A' && c<='Z') || (c>='0' && c<='9');
         }
     }
 }
