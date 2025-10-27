@@ -24,20 +24,20 @@ public class Q530 {
     }
 
     class Solution {
-        int[] min= new int[]{Integer.MAX_VALUE, Integer.MAX_VALUE};
+        List<Integer> values = new ArrayList<>();
         public int getMinimumDifference(TreeNode root) {
             dfs(root);
-            return min[1]- min[0];
+            values.sort(Comparator.naturalOrder());
+            int minDiff = Integer.MAX_VALUE;
+            for(int i=0; i< values.size()-1; i++){
+                minDiff=Math.min(minDiff, Math.abs(values.get(i)-values.get(i+1)));
+            }
+            return minDiff;
         }
 
         void dfs(TreeNode node){
             if(node==null) return;
-            if(node.val<min[0]){
-                min[1] = min[0];
-                min[0] = node.val;
-            }else if(node.val>min[0] && node.val<min[1]){
-                min[1] = node.val;
-            }
+            values.add(node.val);
             dfs(node.left);
             dfs(node.right);
         }
