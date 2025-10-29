@@ -21,26 +21,33 @@ public class Q79 {
             if(word.length()-1 == charIndex) return true;
 
             //find valid neighbours
-            if(i-1>=0 && !isVisited(i-1,j,visitedIndices,board.length)) && board[i-1][j]==word.charAt(charIndex+1)){
-                visitedIndices.add((i-1)*board.length + j)
-                if(check(board, i-1,j, word, charIndex+1, visitedIndices){
-                    return true;
+            int index = i*board.length + j;
+            int[] indices = new int[]{ index-1, index+1, index-board.length, index+board.length};
+            for(int idx: indices){
+                int rowIndex= idx/board.length;
+                int colIndex= idx % board.length;
+                if(isValidIndex(board, rowIndex, colIndex, word, charIndex, visitedIndices)){
+                    visitedIndices.add(idx);
+                    if(check(board, rowIndex, colIndex, word, charIndex+1, visitedIndices)){
+                        return true;
+                    }
+                    visitedIndices.remove(visitedIndices.size()-1);
                 }
-            }
-            if(j-1>=0 && !isVisited(i,j-1,visitedIndices,board.length)) && board[i-1][j]==word.charAt(charIndex+1)){
-                if(check(board, i-1,j, word, charIndex+1, visitedIndices){
-                    return true;
-                }
-            }
-
-            //call check() on valid neighbours
-        }
-
-        boolean isVisited(int i, int j, int[] visitedIndices, int rowLength){
-            for(int index: visitedIndices){
-                if(index/rowLength == i && index%rowLength == j) retrun true;
             }
             return false;
+        }
+
+        boolean isVisited(int i, int j, List<Integer> visitedIndices, int rowLength){
+            for(var index: visitedIndices){
+                if(index/rowLength == i && index%rowLength == j) return true;
+            }
+            return false;
+        }
+
+        boolean isValidIndex(char[][] board, int i, int j, String word,int charIndex, List<Integer> visitedIndices){
+            return i>=0 && i<board.length && j>=0 && j<board.length
+                    && board[i][j] == word.charAt(charIndex)
+                    && !isVisited(i,j,visitedIndices,board.length);
         }
     }
 }
