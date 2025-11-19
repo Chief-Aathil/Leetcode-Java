@@ -1,67 +1,31 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Q15 {
     class Solution {
-        Map<Integer, List<Integer>> numToIndicesMap = new HashMap<>();
-
         public List<List<Integer>> threeSum(int[] nums) {
-            //Create a map<number:index>
-            for(int i=0; i<nums.length; i++){
-                numToIndicesMap.computeIfAbsent(nums[i],k->new ArrayList<>()).add(i);
-            }
-
-            //For each num find 2Sum = -num
+            Arrays.sort(nums);
             List<List<Integer>> output = new ArrayList<>();
-            for(int i=0;i<nums.length; i++){
-                List<List<Integer>> twoSumCombinations = find2Sum(nums, -nums[i], i);
-                if(twoSumCombinations==null || twoSumCombinations.size()==0){
-                    continue;
-                }
-                for(var combination: twoSumCombinations){
-                    combination.add(i);
-                    combination.sort(null);
-                    boolean isTripletAlreadyPresent = false;
-                    for(var entry: output){
-                        if(entry.get(0)==combination.get(0)
-                                && entry.get(1)==combination.get(1)
-                                && entry.get(2)==combination.get(2)){
-                            isTripletAlreadyPresent = true;
-                        }
-                    }
-                    if(isTripletAlreadyPresent){
-                        continue;
-                    }
-                    output.add(combination);
-                }
+            for(int i=0; i<nums.length-2; i++){
+                if(nums[i]==0) break;
+                if(i>0 && nums[i]== nums[i-1]) continue;
 
+                // For each num find2Sum
+                int left=i+1, right= nums.length-1;
+                while(left<right){
+                    if(nums[left]+nums[right]> -nums[i]) right--;
+                    else if(nums[left]+nums[right]< -nums[i]) left++;
+                    else {
+                        output.add(List.of(nums[i],nums[left],nums[right]));
+                        while(left<right && nums[left]==nums[left+1]) left++;
+                        while(left<right && nums[right] == nums[right-1]) right--;
+                    }
+                }
             }
             return output;
-
         }
-
-        List<List<Integer>> find2Sum(int[] nums, int target, int excludedIndex) {
-            List<List<Integer>> twoSumIndices = new ArrayList<>();
-            for (int i = 0; i < nums.length; i++) {
-                if (i == excludedIndex) {
-                    continue;
-                }
-                var indices = numToIndicesMap.get(target - nums[i]);
-                if (indices == null || indices.size() == 0) {
-                    continue;
-                }
-                for (int index : indices) {
-                    if (index == excludedIndex) {
-                        continue;
-                    }
-                    twoSumIndices.add(new ArrayList<>(List.of(i, index)));
-                }
-
-            }
-            return twoSumIndices;
-        }
-
     }
+/**
+ -4,-1,-1,0,1,2
+
+ */
 }
